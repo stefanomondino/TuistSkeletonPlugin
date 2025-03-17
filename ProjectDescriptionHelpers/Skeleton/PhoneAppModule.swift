@@ -1,10 +1,3 @@
-//
-//  PhoneAppModule.swift
-//  ProjectDescriptionHelpers
-//
-//  Created by Andrea Altea on 19/01/24.
-//
-
 import ProjectDescription
 
 public extension Skeleton {

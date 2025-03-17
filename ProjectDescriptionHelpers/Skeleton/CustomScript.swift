@@ -1,10 +1,3 @@
-//
-//  CustomScript.swift
-//  ProjectDescriptionHelpers
-//
-//  Created by Andrea Altea on 22/01/24.
-//
-
 import ProjectDescription
 
 public extension Skeleton {

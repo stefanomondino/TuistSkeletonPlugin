@@ -1,10 +1,3 @@
-//
-//  TestModule.swift
-//  ProjectDescriptionHelpers
-//
-//  Created by Andrea Altea on 24/01/24.
-//
-
 import ProjectDescription
 
 public extension Skeleton {

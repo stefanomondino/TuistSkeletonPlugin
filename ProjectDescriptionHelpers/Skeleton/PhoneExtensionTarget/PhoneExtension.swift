@@ -1,10 +1,3 @@
-//
-//  PhoneExtension.swift
-//  ProjectDescriptionHelpers
-//
-//  Created by Andrea Altea on 05/02/24.
-//
-
 import ProjectDescription
 
 public protocol PhoneExtensionTarget: Encodable, Sendable {
