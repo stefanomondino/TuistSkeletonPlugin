@@ -44,38 +44,6 @@ public extension Workspace {
             targets: targets,
             resourceSynthesizers: [.environment, .plists(), .fonts()]
         )
-
-//        let testableProjects = projects
-//
-//            .filter { $0.testInfo().isTestable }
-//
-//        let targets: [TargetReference] = testableProjects
-//            .map { .project(path: $0.path,
-//                            target: $0.testInfo().testTargetName) }
-//
-//        let testableTargets: [TestableTarget] = testableProjects.map {
-//            .testableTarget(target: .project(path: $0.path,
-//                                             target: $0.testInfo().testTargetName),
-//                            isParallelizable: true)
-//        }
-//
-//        let codeCoverageTargets: [TargetReference] = testableProjects
-//            .map { .project(path: $0.path,
-//                            target: $0.testInfo().targetName) }
-//
-//        let testScheme = Scheme.scheme(name: "AllTests",
-//                                       shared: true,
-//                                       hidden: false,
-//                                       buildAction: .buildAction(targets: targets),
-//                                       testAction: .targets(
-//                                        testableTargets,
-//                                        options: .options(coverage: true,
-//                                                          codeCoverageTargets: codeCoverageTargets)
-//                                       ),
-//                                       runAction: .runAction(configuration: .debug),
-//                                       archiveAction: .archiveAction(configuration: .release),
-//                                       profileAction: .profileAction(configuration: .debug),
-//                                       analyzeAction: .analyzeAction(configuration: .debug))
     }
 
     static func workspaceWithProject(projectName: String,
