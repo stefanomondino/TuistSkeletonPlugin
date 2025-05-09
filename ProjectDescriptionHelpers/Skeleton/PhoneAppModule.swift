@@ -162,7 +162,7 @@ private extension Skeleton.PhoneAppModule {
                 deploymentTargets: nil,
                 sources: .sources(in: ["Tests" as String, "../Shared/Tests"].map { folderPrefix + $0 }),
                 resources: .resources(in: ["Tests" as String, "../Shared/Tests"].map { folderPrefix + $0 }),
-                dependencies: [.target(name: "\(name)\(environment.name)")])
+                dependencies: dependencies.make() + [.target(name: "\(name)\(environment.name)")])
     }
 
     private func appTargetDependencies(from environment: Environment) -> [TargetDependency] {

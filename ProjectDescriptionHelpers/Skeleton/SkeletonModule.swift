@@ -168,6 +168,7 @@ public extension SkeletonModule {
 
     func makeTestDependencies() -> [TargetDependency] {
         [makeDependency()].compactMap { $0 }
+            + makeDependencies()
             + testDependencies.make()
             + [.sdk(name: "XCTest", type: .framework)]
     }
