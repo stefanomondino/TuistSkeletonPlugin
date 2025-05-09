@@ -44,9 +44,11 @@ public extension Skeleton {
         public var isTestable: Bool
         public var appVersion: String
         public var supportsParallelTesting: Bool
+        public var swiftVersion: SwiftVersion 
         public init(name: String,
                     folder: String,
                     destinations: Destinations,
+                    swiftVersion: SwiftVersion = .default,
                     iOSVersion: String,
                     appVersion: String,
                     environments: [Environment],
@@ -115,8 +117,10 @@ public extension Skeleton {
                 name: name,
                 organizationName: organizationName,
                 options: .options(),
-                settings: .settings(base: ["MARKETING_VERSION":
-                        "\(appVersion)"]),
+                settings: .settings(base: [
+                    "MARKETING_VERSION": "\(appVersion)",
+                    "SWIFT_VERSION": .string(swiftVersion.description)
+                ]),
                 targets: targets(),
                 schemes: schemes,
                 resourceSynthesizers: [.environment, .plists(), .fonts(), .assets()]
