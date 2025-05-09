@@ -64,6 +64,7 @@ public extension Skeleton {
             self.name = name
             self.appVersion = appVersion
             self.organizationName = organizationName
+            self.swiftVersion = swiftVersion
             deploymentTargets = .iOS(iOSVersion)
             self.folder = folder
             self.destinations = destinations.filter { $0.platform == .iOS }
