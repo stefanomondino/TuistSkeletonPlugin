@@ -10,6 +10,8 @@ public extension Skeleton {
 
         enum TargetType {
             case none
+            case custom(condition: ProjectDescription.PlatformCondition? = nil,
+                        callback: @Sendable (ProjectDescription.PlatformCondition?) -> TargetDependency)
             case external(name: String, condition: ProjectDescription.PlatformCondition? = nil)
             case sdk(name: String, type: ProjectDescription.SDKType, condition: ProjectDescription.PlatformCondition? = nil)
         }
@@ -21,6 +23,12 @@ public extension Skeleton {
                                     condition: ProjectDescription.PlatformCondition? = nil,
                                     isPrivate: Bool = false) -> Self {
             .init(.external(name: name, condition: condition), isPrivate: isPrivate)
+        }
+        public static func custom(condition: ProjectDescription.PlatformCondition? = nil,
+                                    isPrivate: Bool = false,
+                                  callback: @escaping @Sendable (ProjectDescription.PlatformCondition?) -> TargetDependency
+        ) -> Self {
+            .init(.custom(condition: condition, callback: callback), isPrivate: isPrivate)
         }
 
         public static var none: Self {
@@ -44,6 +52,8 @@ public extension Skeleton {
             switch targetType {
             case .none:
                 nil
+            case .custom(let condition, let closure):
+                closure(condition)
             case let .external(name, condition):
                 .external(name: name, condition: condition)
             case let .sdk(name, type, condition):
