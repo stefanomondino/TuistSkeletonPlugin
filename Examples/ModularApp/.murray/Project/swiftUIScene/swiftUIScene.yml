@@ -1,0 +1,13 @@
+name: swiftUIScene
+parameters: 
+- name: name
+  isRequired: true
+- name: module
+  isRequired: true
+paths:
+- from: SceneView.swift.stencil
+  to: "{{moduleSourcesFolder}}/Scenes/Elements/{{name|firstUppercase}}/{{name|firstUppercase}}View.swift"
+- from: SceneViewController.swift.stencil
+  to: "{{moduleSourcesFolder}}/Scenes/Elements/{{name|firstUppercase}}/{{name|firstUppercase}}ViewController.swift"
+description: An item named swiftUIScene created from scaffold
+replacements: []

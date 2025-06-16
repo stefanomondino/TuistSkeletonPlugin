@@ -1,0 +1,23 @@
+{{fileHeader}}
+
+import Components
+import Combine
+import SwiftUI
+/**
+ A View for `{{name|firstUppercase}}` contents.
+
+ Contents should be entirely driven by `ViewModel`, so that this view can safely deployed in production without being tested.
+
+ */
+struct {{name|firstUppercase}}ItemView: View {
+   @ObservedObject var viewModel: {{name|firstUppercase}}ItemViewModel
+   var body: some View {
+        Text("{{name}}")
+   }
+}
+
+struct {{name|firstUppercase}}ItemViewPreviewProvider_Previews: PreviewProvider {
+    static var previews: some View {
+        {{name|firstUppercase}}ItemView(viewModel: .init({{name|firstLowercase}}: ""))
+    }
+}

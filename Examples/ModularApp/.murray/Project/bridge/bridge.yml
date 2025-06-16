@@ -1,0 +1,33 @@
+name: client
+parameters: 
+- name: name
+  isRequired: true
+  description: "A Networking API client module"
+- name: tuist.moduleArray.path
+  isRequired: true
+- name: fileHeader
+  isRequired: true
+paths: 
+- from: Module
+  to: Sources/Bridge/{{name|firstUppercase}}
+description: A bridge module.
+plugins:
+  shell:
+    after:  
+    - "cd Sources/Bridge/{{name|firstUppercase}}/ && sourcery --config sourcery.yml"
+replacements: 
+  - text: |
+          static func {{name|firstLowercase}}Bridge() -> Skeleton.BridgeModule {
+              Skeleton.BridgeModule(name: "{{name|firstUppercase}}Bridge", platforms: Constants.platforms,
+                                    dependencies: .init(),
+                                    synthesizers: [.assets()])
+          }
+    destination: "{{tuist.config.bridge}}"
+    placeholder: "// murray: declaration"
+
+  - text: |
+          Skeleton.BridgeModule.{{name|firstLowercase}}Bridge(),
+    destination: "{{tuist.workspace.config}}"
+    placeholder: "// murray: bridge integration"
+    
+    

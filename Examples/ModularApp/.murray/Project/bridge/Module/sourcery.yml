@@ -1,0 +1,10 @@
+configurations:
+- sources:
+  - Sources
+  - ../../Core
+  - ../../../.sourcery/Equatables.swift
+  templates:
+  - ../../../.sourcery/AutoMockable.stencil
+  output: Sources/Mocks/Generated/AutoMockable.swift
+  args:
+    autoMockableImports: ["Routes", "{{name|firstUppercase}}Bridge"]

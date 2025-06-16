@@ -1,0 +1,14 @@
+{{fileHeader}}
+
+import ToolKit
+@testable import {{module|firstUppercase}}
+import Combine
+
+import XCTest
+
+class {{name|firstUppercase}}UseCaseTests: XCTestCase {
+
+    func testTrue() throws {
+        XCTAssert(true)
+    }
+}

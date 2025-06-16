@@ -1,0 +1,39 @@
+name: module
+parameters: 
+- name: name
+  isRequired: true
+  description: "The name of the module"
+- name: tuist.config.feature
+  isRequired: true
+- name: fileHeader
+  isRequired: true
+paths: 
+- from: Module
+  to: Sources/Modules/{{name|firstUppercase}}
+- from: App
+  to: "{{app.container.moduleFolder}}/{{name|firstUppercase}}"
+description: A module.
+plugins:
+  shell:
+    after:  
+    - "cd Sources/Modules/{{name|firstUppercase}}/ && mint run sourcery --config sourcery.yml"
+replacements: 
+  - text: |
+          setup{{name|firstUppercase}}()
+    destination: "{{app.container.path}}"
+    placeholder: "// murray: registration"
+
+  - text: |
+          static func {{name|firstLowercase}}() -> Skeleton.FeatureModule {
+              Skeleton.FeatureModule(name: "{{name|firstUppercase}}", platforms: Constants.platforms,
+                                     dependencies: .init(),
+                                     synthesizers: [])
+          }
+    destination: "{{tuist.config.feature}}"
+    placeholder: "// murray: declaration"
+
+  - text: |
+          Skeleton.FeatureModule.{{name|firstLowercase}}(),
+    destination: "{{tuist.workspace.config}}"
+    placeholder: "// murray: feature integration"
+    

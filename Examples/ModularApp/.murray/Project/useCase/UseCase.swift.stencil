@@ -1,0 +1,17 @@
+{{fileHeader}}
+
+import ToolKit
+import Foundation
+import Combine
+import Components
+
+// sourcery: AutoMockable
+public protocol {{name|firstUppercase}}UseCase {
+
+}
+
+class {{name|firstUppercase}}UseCaseImplementation: {{name|firstUppercase}}UseCase {
+
+    init() {}
+
+}

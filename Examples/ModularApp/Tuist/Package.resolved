@@ -1,5 +1,5 @@
 {
-  "originHash" : "924e920cfca97864833862ebc8880ebb11a1390244715c93a2b74f5d50344b18",
+  "originHash" : "7e786799f0242dd21a52720dbe425770b6d6dfe275ce8f90e7c2a61a5f08ffbd",
   "pins" : [
     {
       "identity" : "keychainaccess",
@@ -15,8 +15,35 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/onevcat/Kingfisher",
       "state" : {
-        "revision" : "4c6b067f96953ee19526e49e4189403a2be21fb3",
-        "version" : "8.3.1"
+        "revision" : "7deda23bbdca612076c5c315003d8638a08ed0f1",
+        "version" : "8.3.2"
+      }
+    },
+    {
+      "identity" : "swift-async-algorithms",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/stefanomondino/swift-async-algorithms",
+      "state" : {
+        "branch" : "main",
+        "revision" : "393a43a6095045a35287b45196086587fe5f7ed2"
+      }
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections.git",
+      "state" : {
+        "revision" : "c1805596154bb3a265fd91b8ac0c4433b4348fb0",
+        "version" : "1.2.0"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-syntax.git",
+      "state" : {
+        "revision" : "0687f71944021d616d34d922343dcef086855920",
+        "version" : "600.0.1"
       }
     }
   ],

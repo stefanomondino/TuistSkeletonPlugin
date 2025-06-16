@@ -1,0 +1,20 @@
+name: componentViewModel
+parameters: 
+- name: name
+  isRequired: true
+- name: module
+  isRequired: true
+paths:
+- from: ComponentViewModel.swift.stencil
+  to: "{{moduleSourcesFolder}}/Components/Elements/{{name|firstUppercase}}/{{name|firstUppercase}}ItemViewModel.swift"
+- from: ComponentViewModelTests.swift.stencil
+  to: "{{moduleTestsFolder}}/Components/{{name|firstUppercase}}ItemViewModelTests.swift"
+description: An item named componentViewModel created from scaffold
+replacements: 
+- text: |
+          func {{name|firstLowercase}}({{name|firstLowercase}}: {{name|firstUppercase}}) -> ViewModel {
+            {{name|firstUppercase}}ItemViewModel({{name|firstLowercase}}: {{name|firstLowercase}}, 
+                                                 layout: .{{name|firstLowercase}})
+          }
+  destination: "{{moduleSourcesFolder}}/Components/Factory/ComponentViewModelFactory.swift"
+  placeholder: "// murray: implementation"

@@ -1,0 +1,39 @@
+date: 2025-06-01T18:57:19.655658007Z
+packages:
+- .murray/Project/Project.yml
+environment:
+  appName: ModularApp
+  app:
+    path: "Sources/Apps/{{appName}}"
+    container:
+      path: '{{app.path}}/Sources/Containers/App.Container.swift'
+      moduleFolder: '{{app.path}}/Sources/Containers/Modules'
+  moduleSourcesFolder: Sources/Features/{{module|firstUppercase}}/Sources
+  moduleTestsFolder: Sources/Features/{{module|firstUppercase}}/Tests
+  tuist:
+    path: Tuist/ProjectDescriptionHelpers
+    config:
+      path: '{{tuist.path}}/Configuration'
+      core: '{{tuist.config.path}}/CoreModules.swift'
+      block: '{{tuist.config.path}}/BlockModules.swift'
+      bridge: '{{tuist.config.path}}/BridgeModules.swift' 
+      feature: '{{tuist.config.path}}/FeatureModules.swift'
+    workspace:
+      config: '{{tuist.path}}/Workspace+Constants.swift'
+    project:
+      fileName: Project.swift
+    moduleExtension:
+      path: Tuist/ProjectDescriptionHelpers/TuistHelpers/Project+Helpers.swift
+    moduleArray:
+      path: Tuist/ProjectDescriptionHelpers/Workspace+Helpers.swift
+  fileHeader: '//
+
+    // {{_filename._to}}
+
+    //
+
+    '
+plugins:
+  shell:
+    after:
+    - # make project

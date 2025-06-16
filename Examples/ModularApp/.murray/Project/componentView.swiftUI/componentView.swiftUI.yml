@@ -1,0 +1,11 @@
+name: componentView
+parameters: 
+- name: name
+  isRequired: true
+- name: module
+  isRequired: true
+paths:
+- from: ComponentView.swift.stencil
+  to: "{{moduleSourcesFolder}}/Components/Elements/{{name|firstUppercase}}/{{name|firstUppercase}}ItemView.swift"
+description: A component SwiftUI view
+replacements: []

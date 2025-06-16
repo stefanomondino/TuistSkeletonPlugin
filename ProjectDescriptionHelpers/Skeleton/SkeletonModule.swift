@@ -45,15 +45,6 @@ public protocol SkeletonModule: ProjectConvertible, DependencyBuilder {
 }
 
 public extension SkeletonModule {
-//    var deploymentTargets: ProjectDescription.DeploymentTargets {
-//        .multiplatform(
-//            iOS: "15.0"
-    ////            macOS: "13.0",
-    ////            watchOS: "7.0",
-    ////            tvOS: "15.0",
-    ////            visionOS: "1.0"
-//        )
-//    }
 
     var bundleId: String {
         "app.framework.\(name)"
@@ -74,10 +65,91 @@ public extension SkeletonModule {
                 sources: .sources(in: folderPrefix + "Sources"),
                 resources: .resources(in: folderPrefix + "Sources"),
                 scripts: [.sourcery()].filter { _ in useSourcery },
-                dependencies: makeDependencies(),
+                dependencies: makeDependencies() + macroDependency(),
                 settings: settings,
                 mergedBinaryType: .disabled, mergeable: false)
     }
+    
+    private var macroName: String {
+        name + "Macro"
+    }
+    // This static condition is for futureproofing macros.
+    #if TUIST_NATIVE_MACRO
+    private var tuistMacro: Bool { true }
+    private var macroPath: String {
+        name + "Macro"
+    }
+    private func macroDependency() -> [TargetDependency] {
+//        hasMacros ? [.target(name: macroName)] : []
+//        hasMacros ? [.package(product: macroName, type: .runtime, condition: nil)] : []
+        hasMacros ? [.package(product: macroName, type: .runtime, condition: nil)] : []
+    }
+    
+    private func macrosTarget() -> Target {
+        .target(name: name + "Macros",
+                destinations: .macOS,
+                product: .macro,
+                bundleId: bundleId + ".macros",
+                deploymentTargets: .macOS("15.0"),
+                                                  
+                sources: .sources(in: folderPrefix + "Macro/*/Sources/Macros"),
+                dependencies: [
+                    .package(product: "SwiftSyntax", type: .runtime, condition: nil),
+                    .package(product: "SwiftCompilerPlugin", type: .runtime, condition: nil),
+                    .package(product: "SwiftSyntaxBuilder", type: .runtime, condition: nil),
+                    .package(product: "SwiftSyntaxMacros", type: .runtime, condition: nil)
+                ]
+        )
+    }
+    
+    private func macroLibraryTarget() -> Target {
+        .target(name: macroName,
+                destinations: [.iPad, .iPhone, .macCatalyst, .macWithiPadDesign, .mac, .appleVision, .appleTv, .appleWatch],
+                product: .staticLibrary,
+                bundleId: bundleId + ".macros.lib",
+                deploymentTargets: .multiplatform(iOS: "16.0", macOS: "15.0"),
+                sources: .sources(in: folderPrefix + "Macro/*/Sources/Library"),
+                dependencies: [
+                    .macro(name: name + "Macros")
+                ]
+        )
+    }
+    
+    private func macroLibraryTests() -> Target {
+        .target(name: macroName + "Tests",
+                destinations: .macOS,
+                product: .unitTests,
+                bundleId: bundleId + ".macros.tests",
+                deploymentTargets: .macOS("15.0"),
+                sources: .sources(in: folderPrefix + "Macro/*/Tests"),
+                dependencies: [
+                    .target(name: "\(name)Macros", status: .optional, condition: nil),
+                    .package(product: "SwiftSyntaxMacrosTestSupport", type: .runtime, condition: nil)
+                ]
+        )
+    }
+    func swiftSyntax() -> Package {
+        .package(url: "https://github.com/apple/swift-syntax", "600.0.0" ..< "700.0.0")
+    }
+    func macroPackages() -> [Package] {
+        hasMacros ? [
+            swiftSyntax(),
+            .local(path: "./Macro")
+        ] : []
+    }
+    #else
+    
+    private var tuistMacro: Bool { true }
+    
+    private func macroDependency() -> [TargetDependency] {
+        hasMacros ? [.external(name: macroName, condition: nil)] : []
+
+    }
+    func macroPackages() -> [Package] {
+        []
+    }
+    #endif
+    
 
     func testTarget(destinations: Destinations) -> Target {
         .target(name: testInfo().testTargetName,
@@ -128,7 +200,6 @@ public extension SkeletonModule {
             destinations.platformDestinations
             .flatMap { platform, destinations in
                 var targets = [Target]()
-
                 if hasDemoApp, let demoApp = demoAppTarget(platform: platform, destinations: destinations) {
                     targets += [demoApp]
                 }
@@ -139,14 +210,15 @@ public extension SkeletonModule {
     func project() -> Project {
         Project(
             name: name,
+            packages: macroPackages(),
             settings: settings ?? .settings(base: ["SWIFT_VERSION": .string(swiftVersion.description)]),
-            targets: targets(),
+            targets: targets() + [macroLibraryTarget(), macrosTarget(), macroLibraryTests()].filter { _ in tuistMacro && hasMacros },
             schemes: [name]
                 .map { text in
                     .scheme(name: text,
                             buildAction: .buildAction(targets: ["\(text)"]),
                             testAction: .targets([.testableTarget(target: "\(text)Tests",
-                                                                  isParallelizable: supportsParallelTesting)],
+                                                                  parallelization: supportsParallelTesting ? .enabled : .disabled)],
                                                  options: .options(coverage: true, codeCoverageTargets: ["\(text)"])),
                             runAction: .runAction(configuration: .debug),
                             archiveAction: .archiveAction(configuration: .release),

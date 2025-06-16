@@ -27,6 +27,7 @@ public extension Skeleton {
             Skeleton.PhoneAppModule(name: "ModularApp",
                                     folder: "ModularApp",
                                     destinations: Constants.iOSDestinations,
+                                    swiftVersion: .v6,
                                     iOSVersion: Constants.iOSDeploymentTarget,
                                     appVersion: ProjectDescription.Environment.versionName.getString(default: "1.0.0"),
                                     environments: [.init(name: "Dev",

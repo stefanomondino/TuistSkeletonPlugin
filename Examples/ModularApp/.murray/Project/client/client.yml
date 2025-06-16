@@ -1,0 +1,36 @@
+name: client
+parameters: 
+- name: name
+  isRequired: true
+  description: "A Networking API client module"
+- name: tuist.moduleArray.path
+  isRequired: true
+- name: fileHeader
+  isRequired: true
+paths: 
+- from: Module
+  to: Sources/Core/{{name|firstUppercase}}Client
+description: A client module.
+plugins:
+  shell:
+    after:  
+    - "cd Sources/Core/{{name|firstUppercase}}Client/ && sourcery --config sourcery.yml"
+replacements: 
+  - text: |
+          static func {{name|firstLowercase}}Client() -> Skeleton.CoreModule {
+              Skeleton.CoreModule(name: "{{name|firstUppercase}}Client", 
+                            destinations: Constants.destinations,
+                            deploymentTargets: .custom,
+                            dependencies: .init(core: [.networking()]),
+                            testDependencies: .init(test: [.coreTesting()]),
+                            synthesizers: [])
+          }
+    destination: "{{tuist.config.core}}"
+    placeholder: "// murray: declaration"
+
+  - text: |
+          Skeleton.CoreModule.{{name|firstLowercase}}Client(),
+    destination: "{{tuist.workspace.config}}"
+    placeholder: "// murray: core integration"
+    
+    

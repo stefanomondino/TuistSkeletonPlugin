@@ -1,0 +1,22 @@
+{{fileHeader}}
+
+import Foundation
+import ToolKit
+import Components
+import Combine
+
+public class {{name|firstUppercase}}ItemViewModel: ViewModel, ObservableObject {
+    
+    @Published var title: String = ""
+    public let entity: {{name|firstUppercase}}
+    public let uniqueIdentifier: UniqueIdentifier
+
+    public var elementSize: ElementSize { Size.automatic() }
+    
+    public init(_ {{name|firstLowercase}}: {{name|firstUppercase}}) {
+        uniqueIdentifier = UUID()
+        entity = {{name|firstLowercase}}
+        title = entity.description
+    }
+}
+

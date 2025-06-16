@@ -1,0 +1,52 @@
+name: Project
+description: A group of procedures to handle a Skeleton project
+procedures:
+- name: client
+  description: An empty network client core framework
+  items:
+  - client/client.yml
+- name: feature
+  description: An empty featureModule framework
+  items:
+  - feature/config.yml
+- name: module
+  description: An empty module framework
+  items:
+  - module/module.yml
+- name: utility
+  description: An empty utility framework
+  items:
+  - utility/utility.yml
+- name: useCase
+  description: A use case for a scene with unit tests
+  items:
+  - useCase/useCase.yml
+- name: componentView.swiftUI
+  description: A cross-platfrom component view made with SwiftUI
+  items:
+  - componentView.swiftUI/componentView.swiftUI.yml
+- name: componentViewModel
+  description: A component view model
+  items:
+  - componentViewModel/componentViewModel.yml
+- name: component.swiftUI
+  description: A full component with view, xib and viewModel
+  items:
+  - componentViewModel/componentViewModel.yml
+  - componentView.swiftUI/componentView.swiftUI.yml
+- name: swiftUIScene
+  description: An item named swiftUIScene created from scaffold
+  items:
+  - swiftUIScene/swiftUIScene.yml
+- name: sceneViewModel
+  description: An item named swiftUIScene created from scaffold
+  items:
+  - sceneViewModel/sceneViewModel.yml
+- name: scene
+  description: A complete scene folder with UseCase, view Model and SwiftUI view
+  items:
+  - sceneViewModel/sceneViewModel.yml
+  - swiftUIScene/swiftUIScene.yml
+  - useCase/useCase.yml
+
+

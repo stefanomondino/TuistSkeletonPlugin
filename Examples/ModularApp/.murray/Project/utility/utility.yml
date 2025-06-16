@@ -1,0 +1,22 @@
+name: utility
+parameters:
+- name: name
+  isRequired: true
+  description: "The name of the module"
+paths:
+- from: Utility
+  to: Sources/Core/{{name|firstUppercase}}
+description: An empty utility framework
+replacements: 
+- text: |
+        .init(name: "{{name|firstUppercase}}", platforms: Constants.platforms),
+  destination: "{{tuist.moduleArray.path}}"
+  placeholder: "// murray: utility"
+- text: |
+        static func {{name|firstLowercase}}(_ platform: Platform) -> TargetDependency {
+          .project(named: "{{name|firstUppercase}}", platform: platform)
+        }
+  destination: "{{tuist.moduleExtension.path}}"
+  placeholder: "// murray: utility"
+
+  

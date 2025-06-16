@@ -1,0 +1,45 @@
+{{fileHeader}}
+
+import Combine
+
+import ToolKit
+import Components
+import Routes
+import Foundation
+
+class {{name|firstUppercase}}ViewModel: SceneViewModel {
+    
+    @Published var loadingType: ToolKit.LoadingType = .none
+    @Published var items: [ToolKit.ViewModel] = []
+    @Published var lastError: AppError?
+
+    var pageIdentifier: Routes.PageIdentifier { "" }
+
+    let router: Router
+
+    var pageTitle: String { "{{name|firstUppercase}}" }
+
+    var navigationTitle: String { pageTitle }
+
+    var backMode: BackMode = .none
+    
+    let uniqueIdentifier: ToolKit.UniqueIdentifier = UUID()
+    
+    let useCase: {{name|firstUppercase}}UseCase
+    
+    var cancellables: [AnyCancellable] = []
+    var reloadCancellables: [AnyCancellable] = []
+    var navigationCancellables: [AnyCancellable] = []
+    
+    init(
+        useCase: {{name|firstUppercase}}UseCase,
+        router: Router) {
+            self.useCase = useCase
+            self.router = router
+            
+        }
+    
+    func reload() async {
+        reloadCancellables = []   
+    }
+}

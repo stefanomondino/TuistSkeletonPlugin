@@ -1,0 +1,25 @@
+{{fileHeader}}
+
+import ToolKit
+import Components
+import Foundation
+import DesignSystem
+import Routes
+import SwiftUI
+
+struct {{name|firstUppercase}}View: SceneView {
+    @ObservedObject var viewModel: {{name|firstUppercase}}ViewModel
+
+    var body: some View {
+        ScrollView {
+            VStack {
+                Text(viewModel.pageTitle)
+            }
+        }
+    }
+}
+
+#Preview {
+        {{name|firstUppercase}}View(viewModel: .init(useCase: {{name|firstUppercase}}UseCaseMock(),
+                                     router: .init()))
+}

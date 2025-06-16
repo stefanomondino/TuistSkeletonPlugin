@@ -1,0 +1,54 @@
+name: feature
+parameters:
+- name: name
+  isRequired: true
+  description: "The name of the feature"
+- name: appName
+  isRequired: true
+  description: "The target app to register this feature into"
+paths:
+- from: Module
+  to: Sources/Features/{{name|firstUppercase}}
+  plugins:
+    shell: 
+      after: ["{{scripts.lint}}"]
+- from: App
+  to: "Sources/Apps/{{appName|firstUppercase}}/Sources/Containers/Modules/{{name|firstUppercase}}"
+  plugins:
+    shell: 
+      after: ["{{scripts.lint}}"]
+description: An empty module 
+plugins:
+    shell: 
+      after: ["{{scripts.sourcery}}"]
+replacements: 
+- text: |
+        await setup{{name|firstUppercase}}()
+  placeholder: "// murray: registration"
+  destination: "Sources/Apps/{{appName|firstUppercase}}/Sources/Containers/App.Container.swift"
+  plugins:
+    shell: 
+      after: []
+- text: |
+        .{{name|firstLowercase}}(),
+  destination: "{{tuist.workspace.config}}"
+  placeholder: "// murray: feature integration"
+  plugins:
+    shell: 
+      after: []
+- text: |
+        static func {{name|firstLowercase}}() -> Skeleton.FeatureModule {
+          .init(name: "{{name|firstUppercase}}",
+                        destinations: Constants.destinations,
+                        deploymentTargets: .custom,
+                        dependencies: .init(core: [.components(), .networking()],
+                                            bridge: [],
+                                            external: []),
+                        testDependencies: .init(test: [.featureTesting()]),
+                        synthesizers: [])
+        }
+  destination: "{{tuist.config.feature}}"
+  placeholder: "// murray: declaration"
+  plugins:
+    shell: 
+      after: []

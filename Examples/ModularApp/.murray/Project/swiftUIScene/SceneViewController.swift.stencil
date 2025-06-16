@@ -1,0 +1,10 @@
+{{fileHeader}}
+
+import ToolKit
+import Components
+import Foundation
+import SwiftUI
+
+class {{name|firstUppercase}}ViewController: SceneViewController<{{name|firstUppercase}}View> {
+}
+

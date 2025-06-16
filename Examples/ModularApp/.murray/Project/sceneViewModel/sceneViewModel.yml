@@ -1,0 +1,21 @@
+name: sceneViewModel
+parameters: 
+- name: name
+  isRequired: true
+- name: module
+  isRequired: true
+- name: entity
+  isRequired: false
+paths:
+- from: SceneViewModel.swift.stencil
+  to: "{{moduleSourcesFolder}}/Scenes/Elements/{{name|firstUppercase}}/{{name|firstUppercase}}ViewModel.swift"
+description: An item named sceneViewModel created from scaffold
+replacements:
+- placeholder: "// murray: implementation"
+  text: |
+        func {{name|firstLowercase}}({%if entity != nil %}_ entity: {{name|firstUppercase}}{%endif%}) async -> {{name|firstUppercase}}ViewModel {
+          await {{name|firstUppercase}}ViewModel({%if entity != nil %}entity: entity, {%endif%}
+                                           useCase: unsafeResolve(),
+                                           routeFactory: unsafeResolve())
+        }
+  destination: "{{moduleSourcesFolder}}/Scenes/Factory/SceneViewModelFactory.swift"

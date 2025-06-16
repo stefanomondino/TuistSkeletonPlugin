@@ -1,0 +1,17 @@
+{{fileHeader}}
+
+import ToolKit
+@testable import {{module|firstUppercase}}
+import Combine
+import TestUtilities
+import XCTest
+
+class {{name|firstUppercase}}ItemViewModelTests: XCTestCase {
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+    }
+
+    func testWithSomethingValid() throws {
+
+    }
+}

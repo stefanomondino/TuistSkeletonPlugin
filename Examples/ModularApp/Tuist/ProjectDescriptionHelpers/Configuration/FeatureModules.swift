@@ -7,7 +7,7 @@ public extension Skeleton.FeatureModule {
         Skeleton.FeatureModule(name: "Onboarding",
                                destinations: Constants.destinations,
                                deploymentTargets: .custom,
-                               dependencies: .init(core: [.logger()],
+                               dependencies: .init(core: [.designSystem()],
                                                    bridge: [],
                                                    external: [.kingfisher()]),
                                testDependencies: .init(test: [.coreTesting()]),

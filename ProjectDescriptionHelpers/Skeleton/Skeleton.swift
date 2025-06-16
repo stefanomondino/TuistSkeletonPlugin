@@ -30,6 +30,7 @@ public protocol ProjectConvertible: Sendable {
     var supportsParallelTesting: Bool { get }
     var name: String { get }
     var isTestable: Bool { get }
+    var hasMacros: Bool { get }
     func testInfo() -> Skeleton.TestInfo
     var destinations: Destinations { get }
     var createProject: Bool { get }
@@ -39,6 +40,7 @@ public protocol ProjectConvertible: Sendable {
 
 public extension ProjectConvertible {
     var createProject: Bool { true }
+    var hasMacros: Bool { false }
     var folderPrefix: String {
         if createProject {
             ""
