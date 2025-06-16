@@ -137,6 +137,9 @@ public extension SkeletonModule {
             .local(path: "./Macro")
         ] : []
     }
+    func macroTargets() -> [Target] {
+        [macroLibraryTarget(), macrosTarget(), macroLibraryTests()].filter { _ in hasMacros }
+    }
     #else
     
     private var tuistMacro: Bool { true }
@@ -146,6 +149,9 @@ public extension SkeletonModule {
 
     }
     func macroPackages() -> [Package] {
+        []
+    }
+    func macroTargets() -> [Target] {
         []
     }
     #endif
@@ -212,7 +218,7 @@ public extension SkeletonModule {
             name: name,
             packages: macroPackages(),
             settings: settings ?? .settings(base: ["SWIFT_VERSION": .string(swiftVersion.description)]),
-            targets: targets() + [macroLibraryTarget(), macrosTarget(), macroLibraryTests()].filter { _ in tuistMacro && hasMacros },
+            targets: targets() + macroTargets(),
             schemes: [name]
                 .map { text in
                     .scheme(name: text,
