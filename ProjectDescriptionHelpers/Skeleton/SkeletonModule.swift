@@ -248,6 +248,7 @@ public extension SkeletonModule {
         [makeDependency()].compactMap { $0 }
             + makeDependencies()
             + testDependencies.make()
-            + [.sdk(name: "XCTest", type: .framework)]
+            + [.sdk(name: "XCTest", type: .framework),
+               .sdk(name: "Testing", type: .framework)]
     }
 }
