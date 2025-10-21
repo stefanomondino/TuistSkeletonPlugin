@@ -23,17 +23,20 @@ public extension Skeleton {
         public var deploymentTargets: DeploymentTargets
         public var dependencies: ModuleDependencies
         public var isTestable: Bool { false }
+        public var customScripts: [TargetScript]
         public var supportsParallelTesting: Bool { false }
         public init(name: String,
                     destinations: Destinations,
                     deploymentTargets: DeploymentTargets,
                     dependencies: Dependencies,
-                    path: (String) -> Path = { "Sources/Testing/\($0)" }) {
+                    path: (String) -> Path = { "Sources/Testing/\($0)" },
+                    customScripts: [TargetScript] = []) {
             self.name = name
             self.path = path(name)
             self.destinations = destinations
             self.deploymentTargets = deploymentTargets
             self.dependencies = dependencies
+            self.customScripts = customScripts
         }
 
         var bundleId: String {
@@ -50,7 +53,7 @@ public extension Skeleton {
                            infoPlist: .extendingDefault(with: [:]),
                            sources: .sources(in: folderPrefix + "Sources"),
                            resources: .resources(in: folderPrefix + "Sources"),
-                           scripts: [],
+                           scripts: customScripts,
                            dependencies: Array(dependencies.make()),
                            settings: .none,
                            mergedBinaryType: .disabled,

@@ -38,6 +38,7 @@ public protocol SkeletonModule: ProjectConvertible, DependencyBuilder {
     var product: Product { get }
     var useSourcery: Bool { get }
     var bundleId: String { get }
+    var customScripts: [TargetScript] { get }
     var swiftVersion: SwiftVersion { get }
     func mainTarget(destinations: Destinations) -> Target
     func testTarget(destinations: Destinations) -> Target
@@ -45,7 +46,9 @@ public protocol SkeletonModule: ProjectConvertible, DependencyBuilder {
 }
 
 public extension SkeletonModule {
-
+    
+    var customScripts: [TargetScript] { [] }
+    
     var bundleId: String {
         "app.framework.\(name)"
     }
@@ -64,7 +67,7 @@ public extension SkeletonModule {
                 infoPlist: .extendingDefault(with: [:]),
                 sources: .sources(in: folderPrefix + "Sources"),
                 resources: .resources(in: folderPrefix + "Sources"),
-                scripts: [.sourcery()].filter { _ in useSourcery },
+                scripts: [.sourcery()].filter { _ in useSourcery } + customScripts,
                 dependencies: makeDependencies() + macroDependency(),
                 settings: settings,
                 mergedBinaryType: .disabled, mergeable: false)
