@@ -78,7 +78,7 @@ public extension ModuleDependencies {
 
     func make(skipIfPrivate: Bool) -> Set<TargetDependency> {
         if skipIfPrivate, isPrivate { return [] }
-        return Set(dependencies
+        return Set(dependencies.uniqued()
             .flatMap {
                 if recursiveDependencies {
                     [$0.makeDependency()].compactMap { $0 } +

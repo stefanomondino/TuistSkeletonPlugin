@@ -255,3 +255,19 @@ public extension SkeletonModule {
                .sdk(name: "Testing", type: .framework)]
     }
 }
+
+extension Array<any DependencyBuilder> {
+    func uniqued() -> Array<any DependencyBuilder> {
+        var values = [any DependencyBuilder]()
+        for value in self {
+            if let module = value as? ProjectConvertible {
+                if !values.contains(where: { ($0 as? ProjectConvertible)?.path == module.path }) {
+                    values.append(value)
+                }
+            } else {
+                values.append(value)
+            }
+        }
+        return values
+    }
+}

@@ -5,15 +5,18 @@ public extension Skeleton {
     struct FeatureModule: SkeletonModule {
         public struct Dependencies: ModuleDependencies {
             public var isPrivate: Bool
+            public var block: [BlockModule]
             public var core: [CoreModule]
             public var bridge: [BridgeModule]
             public var external: [ExternalModule]
             public var dependencies: [DependencyBuilder] { core + bridge }
             public init(isPrivate: Bool = false,
+                        block: [BlockModule] = [],
                         core: [CoreModule] = [],
                         bridge: [BridgeModule] = [],
                         external: [ExternalModule] = []) {
                 self.isPrivate = isPrivate
+                self.block = block
                 self.core = core
                 self.bridge = bridge
                 self.external = external
