@@ -44,7 +44,9 @@ public extension Skeleton {
         public var isTestable: Bool
         public var appVersion: String
         public var supportsParallelTesting: Bool
-        public var swiftVersion: SwiftVersion 
+        public var swiftVersion: SwiftVersion
+        public var resourceSynthesizers: [ResourceSynthesizer]
+            
         public init(name: String,
                     folder: String,
                     destinations: Destinations,
@@ -60,6 +62,7 @@ public extension Skeleton {
                     customScripts: [Skeleton.CustomScript] = [],
                     isTestable: Bool = true,
                     supportsParallelTesting: Bool = true,
+                    resourceSyntesizers: [ResourceSynthesizer] = [.environment, .plists(), .fonts(), .assets()],
                     extensions: (Environment) -> [PhoneExtension] = { _ in [] }) {
             self.name = name
             self.appVersion = appVersion
@@ -77,7 +80,7 @@ public extension Skeleton {
             self.supplementaryResources = supplementaryResources
             self.customScripts = customScripts
             self.entitlements = entitlements
-
+            self.resourceSynthesizers = resourceSyntesizers
             self.extensions = environments.reduce(into: [String: [PhoneExtension]]()) { dictionary, environment in
                 dictionary[environment.name] = extensions(environment)
             }
@@ -124,7 +127,7 @@ public extension Skeleton {
                 ]),
                 targets: targets(),
                 schemes: schemes,
-                resourceSynthesizers: [.environment, .plists(), .fonts(), .assets()]
+                resourceSynthesizers: resourceSynthesizers
             )
         }
     }
