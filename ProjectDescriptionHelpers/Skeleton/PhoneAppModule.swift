@@ -62,7 +62,7 @@ public extension Skeleton {
                     customScripts: [Skeleton.CustomScript] = [],
                     isTestable: Bool = true,
                     supportsParallelTesting: Bool = true,
-                    resourceSyntesizers: [ResourceSynthesizer] = [.environment, .plists(), .fonts(), .assets()],
+                    resourceSynthesizers: [ResourceSynthesizer] = [.environment, .plists(), .fonts(), .assets()],
                     extensions: (Environment) -> [PhoneExtension] = { _ in [] }) {
             self.name = name
             self.appVersion = appVersion
@@ -80,7 +80,7 @@ public extension Skeleton {
             self.supplementaryResources = supplementaryResources
             self.customScripts = customScripts
             self.entitlements = entitlements
-            self.resourceSynthesizers = resourceSyntesizers
+            self.resourceSynthesizers = resourceSynthesizers
             self.extensions = environments.reduce(into: [String: [PhoneExtension]]()) { dictionary, environment in
                 dictionary[environment.name] = extensions(environment)
             }
