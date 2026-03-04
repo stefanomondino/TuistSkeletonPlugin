@@ -54,8 +54,7 @@ public extension ResourceFileElements {
                                    "*.swift",
                                    "**/*.entitlements",
                                    "**/*.xcodeproj/**"] + platform.exclusions.flatMap { ["\(folder)/**/*.swift",
-                                                                                         "\(folder)/**/*.\($0)/**"] },
-                       inclusionCondition: .when(platform.filters))]
+                                                                                         "\(folder)/**/*.\($0)/**"] })]
             })
     }
     
