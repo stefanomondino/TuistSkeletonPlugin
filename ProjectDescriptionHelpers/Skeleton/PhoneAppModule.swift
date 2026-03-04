@@ -62,7 +62,7 @@ public extension Skeleton {
                     customScripts: [Skeleton.CustomScript] = [],
                     isTestable: Bool = true,
                     supportsParallelTesting: Bool = true,
-                    resourceSynthesizers: [ResourceSynthesizer] = [.environment, .plists(), .fonts(), .assets()],
+                    resourceSynthesizers: [ResourceSynthesizer] = [ .plists(), .fonts(), .assets()],
                     extensions: (Environment) -> [PhoneExtension] = { _ in [] }) {
             self.name = name
             self.appVersion = appVersion

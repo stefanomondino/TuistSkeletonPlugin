@@ -42,7 +42,7 @@ public extension Workspace {
             settings: .settings(base: ["MARKETING_VERSION":
                     "\(ProjectDescription.Environment.versionName.getString(default: "1.0.0"))"]),
             targets: targets,
-            resourceSynthesizers: [.environment, .plists(), .fonts()]
+            resourceSynthesizers: [.plists(), .fonts()]
         )
     }
 
