@@ -54,8 +54,8 @@ public extension Skeleton.PhoneAppModule {
                                                             "NSExtensionPointIdentifier": "com.apple.usernotifications.content-extension",
                                                             "NSExtensionMainStoryboard": "MainInterface"
                                                         ]]),
-                    sources: .sources(in: "Extensions/NotificationContent/Sources"),
-                    resources: .resources(in: "Extensions/NotificationContent/Sources"),
+                    sources: .sources(in: "Extensions/NotificationContent/Sources", platform: .iOS),
+                    resources: .resources(in: "Extensions/NotificationContent/Sources", platform: .iOS),
                     dependencies: [.sdk(name: "UserNotifications", type: .framework),
                                    .sdk(name: "UserNotificationsUI", type: .framework)],
                     settings: .settings(base: environment.settings.settingValue,

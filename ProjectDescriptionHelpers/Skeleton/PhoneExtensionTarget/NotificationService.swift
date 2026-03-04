@@ -45,8 +45,8 @@ public extension Skeleton.PhoneAppModule {
                                                             "NSExtensionPointIdentifier": "com.apple.usernotifications.service",
                                                             "NSExtensionPrincipalClass": "$(PRODUCT_MODULE_NAME).NotificationService"
                                                         ]]),
-                    sources: .sources(in: "Extensions/NotificationService/Sources"),
-                    resources: .resources(in: "Extensions/NotificationService/Sources"),
+                    sources: .sources(in: "Extensions/NotificationService/Sources", platform: .iOS),
+                    resources: .resources(in: "Extensions/NotificationService/Sources", platform: .iOS),
                     dependencies: Array(dependencies.make()),
                     settings: .settings(base: environment.settings.settingValue,
                                         configurations: environment.configurations))

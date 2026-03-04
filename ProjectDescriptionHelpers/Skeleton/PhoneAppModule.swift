@@ -142,8 +142,8 @@ private extension Skeleton.PhoneAppModule {
                 bundleId: environment.bundleIdentifier,
                 deploymentTargets: .iOS(environment.iOSDeploymentTarget),
                 infoPlist: .extendingDefault(with: environment.plist.plistValue),
-                sources: .sources(in: (["Sources" as String, "../Shared/Sources"] + supplementarySources).map { folderPrefix + $0 }),
-                resources: .resources(in: (["Sources" as String, "../Shared/Sources", environment.customResourcesFolder] + supplementaryResources).map { folderPrefix + $0 }),
+                sources: .sources(in: (["Sources" as String, "../Shared/Sources"] + supplementarySources).map { folderPrefix + $0 }, platform: .iOS),
+                resources: .resources(in: (["Sources" as String, "../Shared/Sources", environment.customResourcesFolder] + supplementaryResources).map { folderPrefix + $0 }, platform: .iOS),
                 entitlements: .dictionary(environment.entitlements.reduce(into: [:]) {
                     $0[$1.key] = $1.value.plistValue
                 }),
@@ -163,8 +163,8 @@ private extension Skeleton.PhoneAppModule {
                 product: .unitTests,
                 bundleId: "\(environment.bundleIdentifier).tests",
                 deploymentTargets: nil,
-                sources: .sources(in: ["Tests" as String, "../Shared/Tests"].map { folderPrefix + $0 }),
-                resources: .resources(in: ["Tests" as String, "../Shared/Tests"].map { folderPrefix + $0 }),
+                sources: .sources(in: ["Tests" as String, "../Shared/Tests"].map { folderPrefix + $0 }, platform: .iOS),
+                resources: .resources(in: ["Tests" as String, "../Shared/Tests"].map { folderPrefix + $0 }, platform: .iOS),
                 dependencies: dependencies.make() + [.target(name: "\(name)\(environment.name)")])
     }
 
